@@ -1,9 +1,7 @@
 ﻿using CashFlow.Communication.Requests;
-using CashFlow.Communication.Responses;
-using CashFlow.Communication.Validations.Expenses;
-using CashFlow.Exception.ExceptionBase;
+using CashFlow.Exception.ExceptionsBase;
 
-namespace CashFlow.Application.UseCases.Expenses.Register;
+namespace CashFlow.App.Validations.Expenses;
 public class RegisterExpenseValidation
 {
     public RegisterExpenseValidation Execute(RequestExpenses request)

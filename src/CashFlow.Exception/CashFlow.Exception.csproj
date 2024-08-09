@@ -19,7 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="ExceptionBase\ResourceErrorMessages.Designer.cs">
+    <ProjectReference Include="..\CashFlow.Domain\CashFlow.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ResourceErrorMessages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ResourceErrorMessages.resx</DependentUpon>
@@ -27,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="ExceptionBase\ResourceErrorMessages.resx">
+    <EmbeddedResource Update="ResourceErrorMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ResourceErrorMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>

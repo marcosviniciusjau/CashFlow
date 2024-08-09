@@ -1,5 +1,5 @@
 ﻿using CashFlow.Communication.Responses;
-using CashFlow.Exception.ExceptionBase;
+using CashFlow.Exception;
 using CashFlow.Exception.ExceptionsBase;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -49,3 +49,5 @@ public class ExceptionFilter : IExceptionFilter
 
     }
 }
+
+

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CashFlow.Exception.ExceptionBase {
+namespace CashFlow.Exception {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace CashFlow.Exception.ExceptionBase {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CashFlow.Exception.ExceptionBase.ResourceErrorMessages", typeof(ResourceErrorMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CashFlow.Exception.ResourceErrorMessages", typeof(ResourceErrorMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,42 @@ namespace CashFlow.Exception.ExceptionBase {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The amount must be greather than 0.
+        /// </summary>
+        public static string Amount_Greather_Than_0 {
+            get {
+                return ResourceManager.GetString("Amount_Greather_Than_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Expenses cannot be in the future.
+        /// </summary>
+        public static string Expenses_Not_In_Future {
+            get {
+                return ResourceManager.GetString("Expenses_Not_In_Future", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Payment Type is not valid.
+        /// </summary>
+        public static string Payment_Invalid {
+            get {
+                return ResourceManager.GetString("Payment_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The title is required.
+        /// </summary>
+        public static string Title_Required {
+            get {
+                return ResourceManager.GetString("Title_Required", resourceCulture);
             }
         }
         
