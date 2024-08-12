@@ -1,5 +1,7 @@
 ﻿using CashFlow.Communication.Requests;
+using CashFlow.Domain.Entities;
 using CashFlow.Exception.ExceptionsBase;
+using CashFlow.Infra.DataAccess;
 
 namespace CashFlow.App.Validations.Expenses;
 public class RegisterExpenseValidation
@@ -8,6 +10,17 @@ public class RegisterExpenseValidation
     {
         Validate(request);
 
+        var entity = new Expense
+        {
+            Title = request.Title,
+            Description = request.Description,
+            Amount = request.Amount,
+            Date = request.Date,
+            PaymentType = (Domain.Entities.Enums.PaymentTypes)request.PaymentType
+        };
+        
+        dbContext.Expenses.Add(entity);
+        dbContext.SaveChanges();
         return new RegisterExpenseValidation();
     }
 
