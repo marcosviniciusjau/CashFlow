@@ -1,4 +1,5 @@
 ﻿using CashFlow.App.Validations.Expenses;
+using CashFlow.App.Validations.Expenses.Register;
 using CashFlow.Communication.Requests;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +10,10 @@ namespace CashFlow.API.Controllers;
 public class ExpensesController : ControllerBase
 {
     [HttpPost]
-    public IActionResult Register([FromBody] RequestExpenses request)
+    public IActionResult Register(
+        [FromServices] IRegisterExpenseValidation validation,
+        [FromBody] RequestExpenses request)
     {
-          var validation = new RegisterExpenseValidation();
 
           var response = validation.Execute(request);
 

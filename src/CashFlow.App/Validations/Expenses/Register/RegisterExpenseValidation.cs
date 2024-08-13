@@ -1,12 +1,22 @@
 ﻿using CashFlow.Communication.Requests;
+using CashFlow.Communication.Responses;
 using CashFlow.Domain.Entities;
+using CashFlow.Domain.Repos;
+using CashFlow.Domain.Repos.Expenses;
 using CashFlow.Exception.ExceptionsBase;
-using CashFlow.Infra.DataAccess;
 
-namespace CashFlow.App.Validations.Expenses;
-public class RegisterExpenseValidation
+namespace CashFlow.App.Validations.Expenses.Register;
+public class RegisterExpenseValidation : IRegisterExpenseValidation
 {
-    public RegisterExpenseValidation Execute(RequestExpenses request)
+    private readonly IExpenses _repo;
+    private readonly IUnityOfWork _unityOfWork;
+    public RegisterExpenseValidation(IExpenses repo, IUnityOfWork unityOfWork)
+    {
+        _repo = repo;
+        _unityOfWork = unityOfWork;
+    }
+
+    public ResponseExpenses Execute(RequestExpenses request)
     {
         Validate(request);
 
@@ -18,10 +28,11 @@ public class RegisterExpenseValidation
             Date = request.Date,
             PaymentType = (Domain.Entities.Enums.PaymentTypes)request.PaymentType
         };
-        
-        dbContext.Expenses.Add(entity);
-        dbContext.SaveChanges();
-        return new RegisterExpenseValidation();
+
+        _repo.Add(entity);
+
+        _unityOfWork.Commit();
+        return new ResponseExpenses();
     }
 
     private void Validate(RequestExpenses request)

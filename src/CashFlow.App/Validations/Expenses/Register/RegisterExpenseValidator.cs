@@ -1,8 +1,9 @@
 ﻿using CashFlow.Communication.Requests;
+using CashFlow.Communication.Responses;
 using CashFlow.Exception;
 using FluentValidation;
 
-namespace CashFlow.App.Validations.Expenses;
+namespace CashFlow.App.Validations.Expenses.Register;
 
 public class RegisterExpenseValidator : AbstractValidator<RequestExpenses>
 {
