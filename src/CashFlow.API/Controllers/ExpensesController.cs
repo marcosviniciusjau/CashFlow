@@ -36,4 +36,17 @@ public class ExpensesController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpGet]
+    [Route("{id}")]
+    [ProducesResponseType(typeof(ResponseExpense), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById(
+      [FromServices] IGetExpenseByIdValidation validation,
+      [FromRoute] long id)
+    {
+        var response = await validation.Execute(id);
+
+        return Ok(response);
+    }
 }

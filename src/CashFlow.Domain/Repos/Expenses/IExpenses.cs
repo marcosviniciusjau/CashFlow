@@ -1,9 +1,4 @@
 ﻿using CashFlow.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CashFlow.Domain.Repos.Expenses;
 public interface IExpenses
@@ -12,5 +7,5 @@ public interface IExpenses
     Task Delete(Expense expense);
     Task Update(Expense expense);
     Task <List<Expense>> GetAll();
-    Expense GetById(int id);
+    Task<Expense?> GetById(long id);
 }

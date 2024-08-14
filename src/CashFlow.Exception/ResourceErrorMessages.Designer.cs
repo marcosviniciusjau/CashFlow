@@ -70,6 +70,15 @@ namespace CashFlow.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Expense not found.
+        /// </summary>
+        public static string Expense_Not_Found {
+            get {
+                return ResourceManager.GetString("Expense_Not_Found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Expenses cannot be in the future.
         /// </summary>
         public static string Expenses_Not_In_Future {

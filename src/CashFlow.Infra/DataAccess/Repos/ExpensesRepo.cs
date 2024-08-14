@@ -17,7 +17,7 @@ internal class ExpensesRepo : IExpenses
     }
     public async Task<List<Expense>> GetAll()
     {
-        return await _dbContext.Expenses.ToListAsync();
+        return await _dbContext.Expenses.AsNoTracking().ToListAsync();
 
     }
 
@@ -31,10 +31,11 @@ internal class ExpensesRepo : IExpenses
         throw new NotImplementedException();
     }
 
-  
-    public Expense GetById(int id)
+    public async Task<Expense?> GetById(long id)
     {
-        throw new NotImplementedException();
+        return await _dbContext.Expenses
+            .AsNoTracking()
+            .FirstOrDefaultAsync(e => e.Id == id);
     }
 
 }

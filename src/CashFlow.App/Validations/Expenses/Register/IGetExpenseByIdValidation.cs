@@ -1,7 +1,7 @@
 ﻿using CashFlow.Communication.Responses;
 
 namespace CashFlow.App.Validations.Expenses.Register;
-public interface IGetAllExpenseValidation
+public interface IGetExpenseByIdValidation
 {
-    Task<ResponseExpenses> Execute();
+    Task<ResponseExpense> Execute(long id);
 }

@@ -1,5 +1,6 @@
 ﻿using CashFlow.App.AutoMapper;
 using CashFlow.App.Validations.Expenses.Register;
+using CashFlow.Application.UseCases.Expenses.GetById;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CashFlow.App;
@@ -22,5 +23,6 @@ public static class DependencyInjection
     {
         services.AddScoped<IRegisterExpenseValidation, RegisterExpenseValidation>();
         services.AddScoped<IGetAllExpenseValidation, GetAllExpensesValidation>();
+        services.AddScoped<IGetExpenseByIdValidation, GeExpenseByIdValidation>();
     }
 }
