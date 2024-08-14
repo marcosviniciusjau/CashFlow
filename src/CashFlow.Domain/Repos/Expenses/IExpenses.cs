@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace CashFlow.Domain.Repos.Expenses;
 public interface IExpenses
 {
-    void Add(Expense expense);
-    void Delete(Expense expense);
-    void Update(Expense expense);
+    Task Add(Expense expense);
+    Task Delete(Expense expense);
+    Task Update(Expense expense);
     List<Expense> Get();
     Expense GetById(int id);
 }

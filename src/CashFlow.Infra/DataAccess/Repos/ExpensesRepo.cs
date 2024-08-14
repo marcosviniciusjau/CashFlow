@@ -10,17 +10,17 @@ internal class ExpensesRepo : IExpenses
     {
         _dbContext = dbContext;
     }
-    public void Add(Expense expense)
+    public async Task Add(Expense expense)
     {
-        _dbContext.Expenses.Add(expense);
+        await _dbContext.Expenses.AddAsync(expense);
     }
 
-    public void Delete(Expense expense)
+    public async Task Delete(Expense expense)
     {
         throw new NotImplementedException();
     }
 
-    public void Update(Expense expense)
+    public async Task Update(Expense expense)
     {
         throw new NotImplementedException();
     }

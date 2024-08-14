@@ -10,12 +10,12 @@ namespace CashFlow.API.Controllers;
 public class ExpensesController : ControllerBase
 {
     [HttpPost]
-    public IActionResult Register(
+    public async Task<IActionResult> Register(
         [FromServices] IRegisterExpenseValidation validation,
         [FromBody] RequestExpenses request)
     {
 
-          var response = validation.Execute(request);
+          var response = await validation.Execute(request);
 
           return Created(string.Empty, response);
       

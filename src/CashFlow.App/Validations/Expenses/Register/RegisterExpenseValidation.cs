@@ -16,7 +16,7 @@ public class RegisterExpenseValidation : IRegisterExpenseValidation
         _unityOfWork = unityOfWork;
     }
 
-    public ResponseExpenses Execute(RequestExpenses request)
+    public async Task<ResponseExpenses> Execute(RequestExpenses request)
     {
         Validate(request);
 
@@ -29,9 +29,9 @@ public class RegisterExpenseValidation : IRegisterExpenseValidation
             PaymentType = (Domain.Entities.Enums.PaymentTypes)request.PaymentType
         };
 
-        _repo.Add(entity);
+        await _repo.Add(entity);
 
-        _unityOfWork.Commit();
+        await _unityOfWork.Commit();
         return new ResponseExpenses();
     }
 
