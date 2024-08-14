@@ -11,6 +11,6 @@ public interface IExpenses
     Task Add(Expense expense);
     Task Delete(Expense expense);
     Task Update(Expense expense);
-    List<Expense> Get();
+    Task <List<Expense>> GetAll();
     Expense GetById(int id);
 }

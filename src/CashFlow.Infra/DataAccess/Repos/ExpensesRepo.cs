@@ -1,5 +1,6 @@
 ﻿using CashFlow.Domain.Entities;
 using CashFlow.Domain.Repos.Expenses;
+using Microsoft.EntityFrameworkCore;
 
 namespace CashFlow.Infra.DataAccess.Repos;
 
@@ -14,6 +15,11 @@ internal class ExpensesRepo : IExpenses
     {
         await _dbContext.Expenses.AddAsync(expense);
     }
+    public async Task<List<Expense>> GetAll()
+    {
+        return await _dbContext.Expenses.ToListAsync();
+
+    }
 
     public async Task Delete(Expense expense)
     {
@@ -25,11 +31,7 @@ internal class ExpensesRepo : IExpenses
         throw new NotImplementedException();
     }
 
-    public List<Expense> Get()
-    {
-        throw new NotImplementedException();
-    }
-
+  
     public Expense GetById(int id)
     {
         throw new NotImplementedException();

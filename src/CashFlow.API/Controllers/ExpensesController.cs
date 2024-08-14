@@ -1,6 +1,7 @@
 ﻿using CashFlow.App.Validations.Expenses;
 using CashFlow.App.Validations.Expenses.Register;
 using CashFlow.Communication.Requests;
+using CashFlow.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlow.API.Controllers;
@@ -10,6 +11,8 @@ namespace CashFlow.API.Controllers;
 public class ExpensesController : ControllerBase
 {
     [HttpPost]
+    [ProducesResponseType(typeof(ResponseExpense), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register(
         [FromServices] IRegisterExpenseValidation validation,
         [FromBody] RequestExpenses request)
@@ -19,5 +22,18 @@ public class ExpensesController : ControllerBase
 
           return Created(string.Empty, response);
       
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(ResponseExpenses), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> GetAllExpenses([FromServices] IGetAllExpenseValidation validation)
+    {
+        var response = await validation.Execute();
+
+        if (response.Expenses.Count != 0)
+            return Ok(response);
+
+        return NoContent();
     }
 }
