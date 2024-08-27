@@ -5,13 +5,13 @@ using CashFlow.Domain.Repos.Expenses;
 using CashFlow.Exception;
 using CashFlow.Exception.ExceptionBase;
 
-namespace CashFlow.App.Validations.Expenses.Register;
+namespace CashFlow.App.Validations.Expenses.Delete;
 public class DeleteExpenseValidation : IDeleteExpenseValidation
 {
-    private readonly IExpenses _repos;
+    private readonly IExpensesWrite _repos;
     private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteExpenseValidation(IExpenses repos, IUnitOfWork unitOfWork)
+    public DeleteExpenseValidation(IExpensesWrite repos, IUnitOfWork unitOfWork)
     {
         _repos = repos;
         _unitOfWork = unitOfWork;

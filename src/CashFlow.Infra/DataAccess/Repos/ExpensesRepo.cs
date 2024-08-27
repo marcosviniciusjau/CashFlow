@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CashFlow.Infra.DataAccess.Repos;
 
-internal class ExpensesRepo : IExpenses
+internal class ExpensesRepo : IExpenseReadOnly,IExpensesWrite, IExpensesUpdate
 {
     private readonly CashFlowDbContext _dbContext;
     public ExpensesRepo(CashFlowDbContext dbContext)
@@ -35,15 +35,20 @@ internal class ExpensesRepo : IExpenses
     }
 
 
-    public async Task Update(Expense expense)
+    public void Update(Expense expense)
     {
-        throw new NotImplementedException();
+        _dbContext.Expenses.Update(expense);
     }
 
-    public async Task<Expense?> GetById(long id)
+     async Task<Expense?> IExpenseReadOnly.GetById(long id)
     {
         return await _dbContext.Expenses
             .AsNoTracking()
+            .FirstOrDefaultAsync(e => e.Id == id);
+    } 
+     async Task<Expense?> IExpensesUpdate.GetById(long id)
+    {
+        return await _dbContext.Expenses
             .FirstOrDefaultAsync(e => e.Id == id);
     }
 

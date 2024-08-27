@@ -1,4 +1,8 @@
-﻿using CashFlow.App.Validations.Expenses.Register;
+﻿using CashFlow.App.Validations.Expenses.Delete;
+using CashFlow.App.Validations.Expenses.GetAll;
+using CashFlow.App.Validations.Expenses.GetById;
+using CashFlow.App.Validations.Expenses.Register;
+using CashFlow.App.Validations.Expenses.Update;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -60,5 +64,20 @@ public class ExpensesController : ControllerBase
         await validation.Execute(id);
 
         return NoContent();
+    }
+
+    [HttpPut]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update(
+        [FromServices] IUpdateExpenseValidation validation,
+        [FromRoute] long id,
+        [FromBody] RequestExpenses request)
+    {
+        await validation.Execute(id, request);
+        return NoContent();
+
     }
 }

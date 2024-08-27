@@ -4,13 +4,13 @@ using CashFlow.Domain.Repos.Expenses;
 using CashFlow.Exception;
 using CashFlow.Exception.ExceptionBase;
 
-namespace CashFlow.App.Validations.Expenses.Register;
+namespace CashFlow.App.Validations.Expenses.GetById;
 public class GetExpenseByIdValidation : IGetExpenseByIdValidation
 {
-    private readonly IExpenses _repos;
+    private readonly IExpenseReadOnly _repos;
     private readonly IMapper _mapper;
 
-    public GetExpenseByIdValidation(IExpenses repos, IMapper mapper)
+    public GetExpenseByIdValidation(IExpenseReadOnly repos, IMapper mapper)
     {
         _repos = repos;
         _mapper = mapper;

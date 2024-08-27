@@ -1,19 +1,18 @@
 ﻿using AutoMapper;
 using CashFlow.Communication.Requests;
-using CashFlow.Communication.Responses;
-using CashFlow.Domain.Entities;
 using CashFlow.Domain.Repos;
 using CashFlow.Domain.Repos.Expenses;
+using CashFlow.Exception;
 using CashFlow.Exception.ExceptionBase;
 
-namespace CashFlow.App.Validations.Expenses.Register;
-public class RegisterExpenseValidation : IRegisterExpenseValidation
+namespace CashFlow.App.Validations.Expenses.Update;
+public class UpdateExpenseValidation : IUpdateExpenseValidation
 {
-    private readonly IExpensesWrite _repo;
     private readonly IUnitOfWork _unityOfWork;
     private readonly IMapper _mapper;
-    public RegisterExpenseValidation(
-        IExpensesWrite repo,
+    private readonly IExpensesUpdate _repo;
+    public UpdateExpenseValidation(
+        IExpensesUpdate repo,
         IUnitOfWork unityOfWork,
         IMapper mapper
         )
@@ -23,15 +22,18 @@ public class RegisterExpenseValidation : IRegisterExpenseValidation
         _mapper = mapper;
     }
 
-    public async Task<ResponseExpense> Execute(RequestExpenses request)
+    public async Task Execute(long id,RequestExpenses request)
     {
         Validate(request);
 
-        var entity = _mapper.Map<Expense>( request );
-        await _repo.Add(entity);
-
+        var expense = await _repo.GetById(id);
+        if(expense is null)
+        {
+            throw new NotFoundException(ResourceErrorMessages.Expense_Not_Found);
+        }
+        _mapper.Map(request, expense);
+         _repo.Update(expense);
         await _unityOfWork.Commit();
-        return _mapper.Map<ResponseExpense>(entity);
     }
 
     private void Validate(RequestExpenses request)

@@ -3,13 +3,13 @@ using CashFlow.Communication.Responses;
 using CashFlow.Domain.Entities;
 using CashFlow.Domain.Repos.Expenses;
 
-namespace CashFlow.App.Validations.Expenses.Register;
+namespace CashFlow.App.Validations.Expenses.GetAll;
 
 public class GetAllExpensesValidation : IGetAllExpenseValidation
 {
-    private readonly IExpenses _repo;
+    private readonly IExpenseReadOnly _repo;
     private readonly IMapper _mapper;
-    public GetAllExpensesValidation(IExpenses repo, IMapper mapper)
+    public GetAllExpensesValidation(IExpenseReadOnly repo, IMapper mapper)
     {
         _repo = repo;
         _mapper = mapper;
