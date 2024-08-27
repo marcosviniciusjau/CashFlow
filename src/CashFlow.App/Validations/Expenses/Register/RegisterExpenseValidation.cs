@@ -4,17 +4,17 @@ using CashFlow.Communication.Responses;
 using CashFlow.Domain.Entities;
 using CashFlow.Domain.Repos;
 using CashFlow.Domain.Repos.Expenses;
-using CashFlow.Exception.ExceptionsBase;
+using CashFlow.Exception.ExceptionBase;
 
 namespace CashFlow.App.Validations.Expenses.Register;
 public class RegisterExpenseValidation : IRegisterExpenseValidation
 {
     private readonly IExpenses _repo;
-    private readonly IUnityOfWork _unityOfWork;
+    private readonly IUnitOfWork _unityOfWork;
     private readonly IMapper _mapper;
     public RegisterExpenseValidation(
         IExpenses repo,
-        IUnityOfWork unityOfWork,
+        IUnitOfWork unityOfWork,
         IMapper mapper
         )
     {

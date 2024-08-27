@@ -1,6 +1,4 @@
-﻿using CashFlow.Exception.ExceptionBase;
-
-namespace CashFlow.Exception.ExceptionsBase;
+﻿namespace CashFlow.Exception.ExceptionBase;
 public class ErrorOnValidation : CashFlowException
 {
     public List<string> Errors { get; set; }

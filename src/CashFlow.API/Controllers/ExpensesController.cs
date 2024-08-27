@@ -1,5 +1,4 @@
-﻿using CashFlow.App.Validations.Expenses;
-using CashFlow.App.Validations.Expenses.Register;
+﻿using CashFlow.App.Validations.Expenses.Register;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -48,5 +47,18 @@ public class ExpensesController : ControllerBase
         var response = await validation.Execute(id);
 
         return Ok(response);
+    }
+
+    [HttpDelete]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(
+      [FromServices] IDeleteExpenseValidation validation,
+      [FromRoute] long id)
+    {
+        await validation.Execute(id);
+
+        return NoContent();
     }
 }

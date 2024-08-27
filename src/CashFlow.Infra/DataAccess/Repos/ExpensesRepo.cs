@@ -21,10 +21,19 @@ internal class ExpensesRepo : IExpenses
 
     }
 
-    public async Task Delete(Expense expense)
+    public async Task<bool> Delete(long id)
     {
-        throw new NotImplementedException();
+        var result = await _dbContext.Expenses.FirstOrDefaultAsync(expense => expense.Id == id);
+        if (result is null)
+        {
+            return false;
+        }
+
+        _dbContext.Expenses.Remove(result);
+
+        return true;
     }
+
 
     public async Task Update(Expense expense)
     {

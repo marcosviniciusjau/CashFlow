@@ -18,7 +18,7 @@ public static class DependencyInjection
 
     private static void AddRepos(IServiceCollection services, IConfiguration config)
     {
-        services.AddScoped<IUnityOfWork, UnitOfWork>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IExpenses, ExpensesRepo>();
     }
 
