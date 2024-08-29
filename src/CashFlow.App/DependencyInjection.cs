@@ -4,7 +4,8 @@ using CashFlow.App.Validations.Expenses.GetAll;
 using CashFlow.App.Validations.Expenses.GetById;
 using CashFlow.App.Validations.Expenses.Register;
 using CashFlow.App.Validations.Expenses.Update;
-using CashFlow.App.Validations.Reports;
+using CashFlow.App.Validations.Reports.Excel;
+using CashFlow.App.Validations.Reports.PDF;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CashFlow.App;
@@ -31,5 +32,6 @@ public static class DependencyInjection
         services.AddScoped<IDeleteExpenseValidation, DeleteExpenseValidation>();
         services.AddScoped<IUpdateExpenseValidation, UpdateExpenseValidation>();
         services.AddScoped<IGenerateReportExcelValidation, GenerateReportExcelValidation>();
+        services.AddScoped<IGenerateReportPDFValidation, GenerateReportPDFValidation>();
     }
 }
