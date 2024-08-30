@@ -56,7 +56,7 @@ internal class ExpensesRepo : IExpenseReadOnly,IExpensesWrite, IExpensesUpdate
     {
         var startDate = new DateTime(year: date.Year, month: date.Month, day: 1).Date;
         var daysInMonth = DateTime.DaysInMonth(year: date.Year, month: date.Month);
-        var endDate = new DateTime(year: date.Year, month: date.Month, day: daysInMonth, hour: 23, minute: 59, second: 59).Date;
+        var endDate = new DateTime(year: date.Year, month: date.Month, day: daysInMonth, hour: 23, minute: 59, second: 59);
 
         return await _dbContext
             .Expenses
