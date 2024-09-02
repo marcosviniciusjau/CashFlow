@@ -33,6 +33,7 @@
     <ProjectReference Include="..\CashFlow.Communication\CashFlow.Communication.csproj" />
     <ProjectReference Include="..\CashFlow.Domain\CashFlow.Domain.csproj" />
     <ProjectReference Include="..\CashFlow.Exception\CashFlow.Exception.csproj" />
+    <ProjectReference Include="..\CashFlow.Infra\CashFlow.Infra.csproj" />
   </ItemGroup>
 
 </Project>

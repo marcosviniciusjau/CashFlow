@@ -135,4 +135,13 @@
   <data name="Unknow_Error" xml:space="preserve">
     <value>Erro desconhecido</value>
   </data>
+  <data name="Email_Not_Empty" xml:space="preserve">
+    <value>O email é obrigatório</value>
+  </data>
+  <data name="Password_Invalid" xml:space="preserve">
+    <value>Senha invalida</value>
+  </data>
+  <data name="Email_Exists" xml:space="preserve">
+    <value>Email já existente</value>
+  </data>
 </root>

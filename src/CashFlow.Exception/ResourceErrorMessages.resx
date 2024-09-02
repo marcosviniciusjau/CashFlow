@@ -138,4 +138,10 @@
   <data name="Email_Not_Empty" xml:space="preserve">
     <value>The email is required</value>
   </data>
+  <data name="Password_Invalid" xml:space="preserve">
+    <value>Password invalid</value>
+  </data>
+  <data name="Email_Exists" xml:space="preserve">
+    <value>Email already exists</value>
+  </data>
 </root>

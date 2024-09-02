@@ -70,6 +70,24 @@ namespace CashFlow.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Email already exists.
+        /// </summary>
+        public static string Email_Exists {
+            get {
+                return ResourceManager.GetString("Email_Exists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The email is required.
+        /// </summary>
+        public static string Email_Not_Empty {
+            get {
+                return ResourceManager.GetString("Email_Not_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Expense not found.
         /// </summary>
         public static string Expense_Not_Found {
@@ -84,6 +102,15 @@ namespace CashFlow.Exception {
         public static string Expenses_Not_In_Future {
             get {
                 return ResourceManager.GetString("Expenses_Not_In_Future", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Password invalid.
+        /// </summary>
+        public static string Password_Invalid {
+            get {
+                return ResourceManager.GetString("Password_Invalid", resourceCulture);
             }
         }
         

@@ -11,9 +11,9 @@ public class UserValidator : AbstractValidator<RequestUser>
         RuleFor(expense => expense.Name).NotEmpty().WithMessage(ResourceErrorMessages.Title_Required);
         RuleFor(expense => expense.Email)
             .NotEmpty()
-            .WithMessage(ResourceErrorMessages.Title_Required)
+            .WithMessage(ResourceErrorMessages.Email_Not_Empty)
             .EmailAddress()
-            .WithMessage(ResourceErrorMessages.Title_Required)
+            .WithMessage(ResourceErrorMessages.Email_Not_Empty)
             ;
         RuleFor(user => user.Password).SetValidator(new PasswordValidator<RequestUser>());
     

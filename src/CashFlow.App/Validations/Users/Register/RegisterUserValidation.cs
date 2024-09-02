@@ -5,41 +5,46 @@ using CashFlow.Communication.Responses;
 using CashFlow.Domain.Entities;
 using CashFlow.Domain.Repos;
 using CashFlow.Domain.Repos.Expenses;
+using CashFlow.Domain.Repos.Users;
+using CashFlow.Domain.Security;
+using CashFlow.Exception;
 using CashFlow.Exception.ExceptionBase;
+using FluentValidation.Results;
 
 namespace CashFlow.App.Validations.Users.Register;
 public class RegisterUserValidation : IRegisterUserValidation
 {
-    private readonly IExpensesWrite _repo;
-    private readonly IUnitOfWork _unityOfWork;
     private readonly IMapper _mapper;
-    public RegisterUserValidation(
-        IExpensesWrite repo,
-        IUnitOfWork unityOfWork,
-        IMapper mapper
-        )
+    private readonly IPasswordEncripter _passwordEncripter;
+    private readonly IUserReadOnly _userReadOnly;
+    public RegisterUserValidation(IMapper mapper,IPasswordEncripter passwordEncripter, IUserReadOnly userReadOnly)
     {
-        _repo = repo;
-        _unityOfWork = unityOfWork;
         _mapper = mapper;
+        _passwordEncripter = passwordEncripter;
+        _userReadOnly = userReadOnly;
     }
 
     public async Task<ResponseRegisteredUser> Execute(RequestUser request)
     {
-        Validate(request);
+        await Validate(request);
 
         var user = _mapper.Map<User>(request);
+        user.Password = _passwordEncripter.Encrypt(request.Password);
         return new ResponseRegisteredUser
         {
             Name = user.Name
         };
     }
 
-    private void Validate(RequestExpenses request)
+    private async Task Validate(RequestUser request)
     {
         var validator = new UserValidator();
 
         var result = validator.Validate(request);
+        var exists = await _userReadOnly.Exists(request.Email);
+        if (exists) {
+            result.Errors.Add(new ValidationFailure(string.Empty,ResourceErrorMessages.Email_Exists));
+        }
 
         if (result.IsValid == false)
         {
