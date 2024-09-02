@@ -6,11 +6,12 @@ using CashFlow.App.Validations.Expenses.Register;
 using CashFlow.App.Validations.Expenses.Update;
 using CashFlow.App.Validations.Reports.Excel;
 using CashFlow.App.Validations.Reports.PDF;
+using CashFlow.App.Validations.Users.Register;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CashFlow.App;
 
-public static class DependencyInjection
+public static class DependencyInjectionExtension
 {
     public static void AddApp(this IServiceCollection services)
     {
@@ -27,6 +28,7 @@ public static class DependencyInjection
     private static void AddValidations(IServiceCollection services)
     {
         services.AddScoped<IRegisterExpenseValidation, RegisterExpenseValidation>();
+        services.AddScoped<IRegisterUserValidation, RegisterUserValidation>();
         services.AddScoped<IGetAllExpenseValidation, GetAllExpensesValidation>();
         services.AddScoped<IGetExpenseByIdValidation, GetExpenseByIdValidation>();
         services.AddScoped<IDeleteExpenseValidation, DeleteExpenseValidation>();

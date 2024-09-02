@@ -4,6 +4,7 @@ using CashFlow.Domain.Entities.Enums;
 using CashFlow.Domain.Extensions;
 using CashFlow.Domain.Repos.Expenses;
 using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
@@ -62,6 +63,20 @@ public class GenerateReportPDFValidation : IGenerateReportPDFValidation
 
             AddExpenseAmount(row.Cells[3], expense.Amount);
 
+            if (string.IsNullOrWhiteSpace(expense.Description) == false)
+            {
+                var descriptionRow = table.AddRow();
+                descriptionRow.Height = 25;
+
+                descriptionRow.Cells[0].AddParagraph(expense.Description);
+                descriptionRow.Cells[0].Format.Font = new Font { Name = FontHelper.WORKSANS_REGULAR, Size = 10, Color = ColorsHelper.BLACK };
+                descriptionRow.Cells[0].Shading = new Shading { Color = ColorsHelper.GREEN_LIGHT };
+                descriptionRow.Cells[0].VerticalAlignment = VerticalAlignment.Center;
+                descriptionRow.Cells[0].MergeRight = 2;
+                descriptionRow.Cells[0].Format.LeftIndent = 20;
+
+                row.Cells[3].MergeDown = 1;
+            }
             row = table.AddRow();
             row.Height = 30;
             row.Borders.Visible = false;
