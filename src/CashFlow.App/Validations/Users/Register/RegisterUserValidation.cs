@@ -12,17 +12,21 @@ using CashFlow.Exception.ExceptionBase;
 using FluentValidation.Results;
 
 namespace CashFlow.App.Validations.Users.Register;
-public class RegisterUserValidation : IRegisterUserValidation
+public class RegisterUserValidation(
+    IMapper mapper,
+    IPasswordEncripter passwordEncripter,
+    IUserReadOnly userReadOnly,
+    IUserWrite userWrite,
+    ITokenGenerator tokenGenerator,
+    IUnitOfWork unitOfWork
+        ) : IRegisterUserValidation
 {
-    private readonly IMapper _mapper;
-    private readonly IPasswordEncripter _passwordEncripter;
-    private readonly IUserReadOnly _userReadOnly;
-    public RegisterUserValidation(IMapper mapper,IPasswordEncripter passwordEncripter, IUserReadOnly userReadOnly)
-    {
-        _mapper = mapper;
-        _passwordEncripter = passwordEncripter;
-        _userReadOnly = userReadOnly;
-    }
+    private readonly IMapper _mapper = mapper;
+    private readonly IPasswordEncripter _passwordEncripter = passwordEncripter;
+    private readonly IUserReadOnly _userReadOnly = userReadOnly;
+    private readonly IUserWrite _userWrite = userWrite;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly ITokenGenerator _tokenGenerator = tokenGenerator;
 
     public async Task<ResponseRegisteredUser> Execute(RequestUser request)
     {
@@ -30,9 +34,15 @@ public class RegisterUserValidation : IRegisterUserValidation
 
         var user = _mapper.Map<User>(request);
         user.Password = _passwordEncripter.Encrypt(request.Password);
+        user.UserId = Guid.NewGuid();
+
+        await _userWrite.Add(user);
+
+        await _unitOfWork.Commit();
         return new ResponseRegisteredUser
         {
-            Name = user.Name
+            Name = user.Name,
+            Token = _tokenGenerator.Generate(user)
         };
     }
 

@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-internal static class PasswordValidatorHelpers
+internal static partial class PasswordValidatorHelpers
 {
 
     [GeneratedRegex(@"[A-Z]+")]

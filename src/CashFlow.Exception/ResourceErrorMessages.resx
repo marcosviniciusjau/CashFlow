@@ -144,4 +144,11 @@
   <data name="Email_Exists" xml:space="preserve">
     <value>Email already exists</value>
   </data>
+  <data name="Name_Not_Empty" xml:space="preserve">
+    <value>The name is required</value>
+  </data>
+  <data name="Invalid_Login" xml:space="preserve">
+    <value>Email or password invalid</value>
+    <comment>Email or password invalid</comment>
+  </data>
 </root>

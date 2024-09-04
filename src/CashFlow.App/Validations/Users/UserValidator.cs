@@ -8,7 +8,7 @@ public class UserValidator : AbstractValidator<RequestUser>
 {
     public UserValidator()
     {
-        RuleFor(expense => expense.Name).NotEmpty().WithMessage(ResourceErrorMessages.Title_Required);
+        RuleFor(expense => expense.Name).NotEmpty().WithMessage(ResourceErrorMessages.Name_Not_Empty);
         RuleFor(expense => expense.Email)
             .NotEmpty()
             .WithMessage(ResourceErrorMessages.Email_Not_Empty)

@@ -106,6 +106,24 @@ namespace CashFlow.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Email or password invalid.
+        /// </summary>
+        public static string Invalid_Login {
+            get {
+                return ResourceManager.GetString("Invalid_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The name is required.
+        /// </summary>
+        public static string Name_Not_Empty {
+            get {
+                return ResourceManager.GetString("Name_Not_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Password invalid.
         /// </summary>
         public static string Password_Invalid {

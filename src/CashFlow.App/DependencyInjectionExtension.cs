@@ -4,6 +4,7 @@ using CashFlow.App.Validations.Expenses.GetAll;
 using CashFlow.App.Validations.Expenses.GetById;
 using CashFlow.App.Validations.Expenses.Register;
 using CashFlow.App.Validations.Expenses.Update;
+using CashFlow.App.Validations.Login;
 using CashFlow.App.Validations.Reports.Excel;
 using CashFlow.App.Validations.Reports.PDF;
 using CashFlow.App.Validations.Users.Register;
@@ -35,5 +36,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUpdateExpenseValidation, UpdateExpenseValidation>();
         services.AddScoped<IGenerateReportExcelValidation, GenerateReportExcelValidation>();
         services.AddScoped<IGenerateReportPDFValidation, GenerateReportPDFValidation>();
+        services.AddScoped<ILoginValidation, LoginValidation>();
     }
 }
