@@ -14,10 +14,6 @@ public class ExceptionFilter : IExceptionFilter
         {
             HandleProjectException(context);
         }
-        else
-        {
-            ThrowUnkowError(context);
-        }
     }
 
     private void HandleProjectException(ExceptionContext context)

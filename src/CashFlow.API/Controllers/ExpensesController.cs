@@ -5,17 +5,20 @@ using CashFlow.App.Validations.Expenses.Register;
 using CashFlow.App.Validations.Expenses.Update;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlow.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class ExpensesController : ControllerBase
 {
     [HttpPost]
     [ProducesResponseType(typeof(ResponseExpense), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+
     public async Task<IActionResult> Register(
         [FromServices] IRegisterExpenseValidation validation,
         [FromBody] RequestExpenses request)

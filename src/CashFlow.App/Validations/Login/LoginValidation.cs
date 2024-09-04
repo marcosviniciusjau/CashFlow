@@ -21,7 +21,7 @@ public class LoginValidation : ILoginValidation
     public async Task<ResponseRegisteredUser> Execute(RequestLogin request)
     {
         var user = await _repos.GetByEmail(request.Email);
-        if (user == null)
+        if (user is null)
         {
             throw new InvalidLogin();
         }
