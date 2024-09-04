@@ -34,8 +34,12 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetExpenseByIdValidation, GetExpenseByIdValidation>();
         services.AddScoped<IDeleteExpenseValidation, DeleteExpenseValidation>();
         services.AddScoped<IUpdateExpenseValidation, UpdateExpenseValidation>();
+        
         services.AddScoped<IGenerateReportExcelValidation, GenerateReportExcelValidation>();
         services.AddScoped<IGenerateReportPDFValidation, GenerateReportPDFValidation>();
+        
+
+        services.AddScoped<IRegisterUserValidation, RegisterUserValidation>();
         services.AddScoped<ILoginValidation, LoginValidation>();
     }
 }

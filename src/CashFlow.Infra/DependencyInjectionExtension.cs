@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CashFlow.Infra;
 
-public static class DependencyInjection
+public static class DependencyInjectionExtension
 {
     public static void AddInfra(this IServiceCollection services, IConfiguration config)
     {
