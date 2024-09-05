@@ -46,10 +46,10 @@ internal class ExpensesRepo : IExpenseReadOnly,IExpensesWrite, IExpensesUpdate
             .AsNoTracking()
             .FirstOrDefaultAsync(e => e.Id == id);
     } 
-     async Task<Expense?> IExpensesUpdate.GetById(long id)
+     async Task<Expense?> IExpensesUpdate.GetById(User user, long id)
     {
         return await _dbContext.Expenses
-            .FirstOrDefaultAsync(e => e.Id == id);
+           .FirstOrDefaultAsync(expense => expense.Id == id && expense.UserId == user.Id);
     }
 
     public async Task<List<Expense>> FilterByMonth(DateOnly date)

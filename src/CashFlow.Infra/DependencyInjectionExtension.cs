@@ -2,9 +2,11 @@
 using CashFlow.Domain.Repos.Expenses;
 using CashFlow.Domain.Repos.Users;
 using CashFlow.Domain.Security;
+using CashFlow.Domain.Services;
 using CashFlow.Infra.DataAccess;
 using CashFlow.Infra.DataAccess.Repos;
 using CashFlow.Infra.Security;
+using CashFlow.Infra.Services.LoggedUser;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,11 +17,13 @@ public static class DependencyInjectionExtension
 {
     public static void AddInfra(this IServiceCollection services, IConfiguration config)
     {
+        services.AddScoped<ILoggedUser, LoggedUser>();
+        services.AddScoped<IPasswordEncripter, Security.BCrypt>();
+
         AddRepos(services, config);
         AddDbContext(services, config);
         AddToken(services, config);
 
-        services.AddScoped<IPasswordEncripter, Security.BCrypt>();
     }
 
     private static void AddToken(IServiceCollection services, IConfiguration configuration)
