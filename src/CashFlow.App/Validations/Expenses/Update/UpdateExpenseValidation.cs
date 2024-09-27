@@ -7,24 +7,17 @@ using CashFlow.Exception;
 using CashFlow.Exception.ExceptionBase;
 
 namespace CashFlow.App.Validations.Expenses.Update;
-public class UpdateExpenseValidation : IUpdateExpenseValidation
+public class UpdateExpenseValidation(
+    IExpensesUpdate repo,
+    IUnitOfWork unityOfWork,
+    IMapper mapper,
+    ILoggedUser loggedUser
+    ) : IUpdateExpenseValidation
 {
-    private readonly IUnitOfWork _unityOfWork;
-    private readonly IMapper _mapper;
-    private readonly IExpensesUpdate _repo;
-    private readonly ILoggedUser _loggedUser;
-    public UpdateExpenseValidation(
-        IExpensesUpdate repo,
-        IUnitOfWork unityOfWork,
-        IMapper mapper,
-        ILoggedUser loggedUser
-        )
-    {
-        _repo = repo;
-        _unityOfWork = unityOfWork;
-        _mapper = mapper;
-        _loggedUser = loggedUser;
-    }
+    private readonly IUnitOfWork _unityOfWork = unityOfWork;
+    private readonly IMapper _mapper = mapper;
+    private readonly IExpensesUpdate _repo = repo;
+    private readonly ILoggedUser _loggedUser = loggedUser;
 
     public async Task Execute(long id,RequestExpenses request)
     {
@@ -32,16 +25,21 @@ public class UpdateExpenseValidation : IUpdateExpenseValidation
         var loggedUser = await _loggedUser.Get();
 
         var expense = await _repo.GetById(loggedUser,id);
-        if(expense is null)
+        if (expense is null)
         {
             throw new NotFoundException(ResourceErrorMessages.Expense_Not_Found);
         }
+
+        expense.Tags.Clear();
+
         _mapper.Map(request, expense);
+
          _repo.Update(expense);
+
         await _unityOfWork.Commit();
     }
 
-    private void Validate(RequestExpenses request)
+    private static void Validate(RequestExpenses request)
     {
         var validator = new ExpenseValidator();
 

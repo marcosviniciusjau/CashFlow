@@ -27,21 +27,21 @@ public class RegisterExpenseValidation : IRegisterExpenseValidation
         _loggedUser = loggedUser;
     }
 
-    public async Task<ResponseExpense> Execute(RequestExpenses request)
+    public async Task<ResponseExpenseRegistered> Execute(RequestExpenses request)
     {
         Validate(request);
         var loggedUser = await _loggedUser.Get();
 
-        var entity = _mapper.Map<Expense>( request ); 
-        entity.UserId = loggedUser.Id;
+        var expense = _mapper.Map<Expense>(request);
+        expense.UserId = loggedUser.Id;
 
-        await _repo.Add(entity);
+        await _repo.Add(expense);
 
         await _unityOfWork.Commit();
-        return _mapper.Map<ResponseExpense>(entity);
+        return _mapper.Map<ResponseExpenseRegistered>(expense);
     }
 
-    private void Validate(RequestExpenses request)
+    private static void Validate(RequestExpenses request)
     {
         var validator = new ExpenseValidator();
 

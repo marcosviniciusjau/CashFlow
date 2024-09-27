@@ -10,4 +10,5 @@ public class ResponseExpense
     public DateTime Date { get; set; }
     public decimal Amount { get; set; }
     public PaymentTypes PaymentType { get; set; }
+    public IList<Tag> Tags { get; set; } = [];
 }

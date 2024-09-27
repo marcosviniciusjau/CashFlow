@@ -11,4 +11,6 @@ public class RequestExpenses
     public decimal Amount { get; set; }
 
     public PaymentTypes PaymentType { get; set; }
+
+    public IList<Tag> Tags { get; set; } = [];
 }

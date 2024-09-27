@@ -9,6 +9,8 @@ public class Expense
     public decimal Amount { get; set; }
     public DateTime Date { get; set; }
     public PaymentTypes PaymentType { get; set; }
+
+    public ICollection<Tag> Tags { get; set; } = [];
     public long UserId { get; set; }
     public User User { get; set; } = default!;
 }

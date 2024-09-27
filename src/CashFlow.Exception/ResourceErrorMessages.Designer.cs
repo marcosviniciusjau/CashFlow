@@ -160,6 +160,15 @@ namespace CashFlow.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a This tag type is invalid.
+        /// </summary>
+        public static string Tag_Invalid {
+            get {
+                return ResourceManager.GetString("Tag_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The title is required.
         /// </summary>
         public static string Title_Required {

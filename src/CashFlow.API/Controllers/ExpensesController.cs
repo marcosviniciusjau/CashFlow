@@ -16,7 +16,7 @@ namespace CashFlow.API.Controllers;
 public class ExpensesController : ControllerBase
 {
     [HttpPost]
-    [ProducesResponseType(typeof(ResponseExpense), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseExpenseRegistered), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
 
     public async Task<IActionResult> Register(
