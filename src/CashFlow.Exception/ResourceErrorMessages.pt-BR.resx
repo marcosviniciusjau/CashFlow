@@ -150,4 +150,10 @@
   <data name="Invalid_Login" xml:space="preserve">
     <value>Email ou senha inválidos</value>
   </data>
+  <data name="Email_Invalid" xml:space="preserve">
+    <value>Esse email é inválido</value>
+  </data>
+  <data name="Different_Password" xml:space="preserve">
+    <value>A senha tem que ser igual a senha atual</value>
+  </data>
 </root>

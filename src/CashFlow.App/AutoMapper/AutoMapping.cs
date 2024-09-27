@@ -18,6 +18,7 @@ public class AutoMapping: Profile
         CreateMap<RequestExpenses, Expense>();
         CreateMap<RequestUser, User>()
             .ForMember(dest => dest.Password, opt => opt.Ignore());
+        CreateMap<RequestUpdateUser, User>();
     }
 
     private void EntityToResponse()
@@ -26,5 +27,6 @@ public class AutoMapping: Profile
         CreateMap<Expense, ResponseShortExpense>();
         CreateMap<Expense, ResponseExpenseRegistered>();
         CreateMap<Expense, ResponseRegisteredUser>();
+        CreateMap<User, ResponseUserProfile>();
     }
 }

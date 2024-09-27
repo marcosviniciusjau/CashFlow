@@ -70,11 +70,29 @@ namespace CashFlow.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The password must be equal of the actual password.
+        /// </summary>
+        public static string Different_Password {
+            get {
+                return ResourceManager.GetString("Different_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Email already exists.
         /// </summary>
         public static string Email_Exists {
             get {
                 return ResourceManager.GetString("Email_Exists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a This email is invalid.
+        /// </summary>
+        public static string Email_Invalid {
+            get {
+                return ResourceManager.GetString("Email_Invalid", resourceCulture);
             }
         }
         

@@ -3,12 +3,13 @@ using CashFlow.App.Validations.Reports.PDF.Fonts;
 using CashFlow.Domain.Entities.Enums;
 using CashFlow.Domain.Extensions;
 using CashFlow.Domain.Repos.Expenses;
+using CashFlow.Domain.Services;
 using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Spreadsheet;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
 using PdfSharp.Fonts;
+using System.Reflection;
 using Cell = MigraDoc.DocumentObjectModel.Tables.Cell;
 using Font = MigraDoc.DocumentObjectModel.Font;
 using Section = MigraDoc.DocumentObjectModel.Section;
@@ -19,22 +20,26 @@ public class GenerateReportPDFValidation : IGenerateReportPDFValidation
 {
     private readonly IExpenseReadOnly _repos;
     private const string CURRENCY = "R$";
-    public GenerateReportPDFValidation(IExpenseReadOnly repos)
+    private readonly ILoggedUser _loggedUser;
+    public GenerateReportPDFValidation(IExpenseReadOnly repos, ILoggedUser loggedUser)
     {
         _repos = repos;
+        _loggedUser = loggedUser;
         GlobalFontSettings.FontResolver = new ExpensesFonts();
     }
     public async Task<byte[]> Execute(DateOnly month)
     {
-        var expenses = await _repos.FilterByMonth(month);
+        var loggedUser = await _loggedUser.Get();
+        var expenses = await _repos.FilterByMonth(loggedUser,month);
         if (expenses.Count == 0)
         {
             return [];
         }
 
-        var document = CreateDocument(month);
+        var document = CreateDocument(loggedUser.Name,month);
         var page = CreatePage(document);
 
+        CreateHeader(loggedUser.Name,page);
         var paragraph = page.AddParagraph(); 
         var totalExpenses = expenses.Sum(expense => expense.Amount);
 
@@ -84,15 +89,35 @@ public class GenerateReportPDFValidation : IGenerateReportPDFValidation
         return RenderDocument(document);
     }
 
-    private Document CreateDocument(DateOnly month)
+    private Document CreateDocument(string author, DateOnly month)
     {
         var document = new Document();
         document.Info.Title =  $"{"Expenses for"} {month:Y}";
+        document.Info.Author = author;
 
         var style = document.Styles["Normal"];
         style!.Font.Name = FontHelper.RALEWAY_REGULAR;
 
         return document;
+    }
+
+    private static void CreateHeader(string name,Section page)
+    {
+        var table = page.AddTable();
+        table.AddColumn();
+        table.AddColumn("300");
+
+        var row = table.AddRow();
+
+        var assembly = Assembly.GetExecutingAssembly();
+        var directoryName = Path.GetDirectoryName(assembly.Location);
+        var pathFile = Path.Combine(directoryName!, "Logo", "ProfilePhoto.png");
+
+        row.Cells[0].AddImage(pathFile);
+
+        row.Cells[1].AddParagraph($"Olá {name}");
+        row.Cells[1].Format.Font = new Font { Name = FontHelper.RALEWAY_BLACK, Size = 16 };
+        row.Cells[1].VerticalAlignment = VerticalAlignment.Center;
     }
 
     private Section CreatePage(Document document)
@@ -131,7 +156,8 @@ public class GenerateReportPDFValidation : IGenerateReportPDFValidation
         var title = string.Format("Total spent in {0}", month.ToString("Y"));
         paragraph.AddFormattedText(title, new Font { Name = FontHelper.RALEWAY_REGULAR, Size = 15 });
         paragraph.AddLineBreak();
-        paragraph.AddFormattedText($"{CURRENCY} {totalExpenses}", new Font { Name = FontHelper.WORKSANS_BLACK, Size = 50 });
+
+        paragraph.AddFormattedText($"{CURRENCY} {totalExpenses:f2}", new Font { Name = FontHelper.WORKSANS_BLACK, Size = 50 });
     }
     private Table CreateExpenseTable(Section page)
     {
@@ -171,7 +197,7 @@ public class GenerateReportPDFValidation : IGenerateReportPDFValidation
 
     private void AddExpenseAmount(Cell cell,decimal amount)
     {
-        cell.AddParagraph($"-{CURRENCY} {amount}");
+        cell.AddParagraph($"-{CURRENCY} {amount:f2}");
 
         cell.Format.Font = new Font { Name = FontHelper.WORKSANS_REGULAR, Size = 14, Color = ColorsHelper.BLACK };
         cell.Shading.Color = ColorsHelper.WHITE;

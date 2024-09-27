@@ -7,7 +7,11 @@ using CashFlow.App.Validations.Expenses.Update;
 using CashFlow.App.Validations.Login;
 using CashFlow.App.Validations.Reports.Excel;
 using CashFlow.App.Validations.Reports.PDF;
+using CashFlow.App.Validations.Users.ChangePassword;
+using CashFlow.App.Validations.Users.Delete;
+using CashFlow.App.Validations.Users.GetProfile;
 using CashFlow.App.Validations.Users.Register;
+using CashFlow.App.Validations.Users.Update;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CashFlow.App;
@@ -41,5 +45,11 @@ public static class DependencyInjectionExtension
 
         services.AddScoped<IRegisterUserValidation, RegisterUserValidation>();
         services.AddScoped<ILoginValidation, LoginValidation>();
+
+        services.AddScoped<IGetProfileValidation, GetProfileValidation>();
+        services.AddScoped<IUpdateProfileValidation, UpdateProfileValidation>();
+        services.AddScoped<IChangePasswordValidation, ChangePasswordValidation>();
+        services.AddScoped<IDeleteProfileValidation, DeleteProfileValidation>();
     }
+    
 }

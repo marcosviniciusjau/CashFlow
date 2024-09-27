@@ -6,7 +6,6 @@ using CashFlow.Domain.Repos;
 using CashFlow.Domain.Repos.Expenses;
 using CashFlow.Domain.Services;
 using CashFlow.Exception.ExceptionBase;
-using PdfSharp.Drawing;
 
 namespace CashFlow.App.Validations.Expenses.Register;
 public class RegisterExpenseValidation : IRegisterExpenseValidation

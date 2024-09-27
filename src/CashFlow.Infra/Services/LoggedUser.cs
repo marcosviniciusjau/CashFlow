@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace CashFlow.Infra.Services.LoggedUser;
+namespace CashFlow.Infra.Services;
 internal class LoggedUser : ILoggedUser
 {
     private readonly CashFlowDbContext _dbContext;

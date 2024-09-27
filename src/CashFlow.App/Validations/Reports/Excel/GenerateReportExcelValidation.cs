@@ -1,20 +1,26 @@
-﻿using CashFlow.Domain.Entities.Enums;
-using CashFlow.Domain.Repos.Expenses;
+﻿using CashFlow.Domain.Repos.Expenses;
 using CashFlow.Domain.Extensions;
 using ClosedXML.Excel;
+using CashFlow.Domain.Services;
 
 namespace CashFlow.App.Validations.Reports.Excel;
 public class GenerateReportExcelValidation : IGenerateReportExcelValidation
 {
     private readonly IExpenseReadOnly _repos;
     private const string CURRENCY = "R$";
-    public GenerateReportExcelValidation(IExpenseReadOnly repos)
+    private readonly ILoggedUser _loggedUser;
+    public GenerateReportExcelValidation(
+        IExpenseReadOnly repos,
+        ILoggedUser loggedUser
+        )
     {
         _repos = repos;
+        _loggedUser = loggedUser;
     }
     public async Task<byte[]> Execute(DateOnly month)
     {
-        var expenses = await _repos.FilterByMonth(month);
+        var loggedUser= await _loggedUser.Get();
+        var expenses = await _repos.FilterByMonth(loggedUser,month);
         if (expenses.Count == 0)
         {
             return [];
@@ -22,7 +28,7 @@ public class GenerateReportExcelValidation : IGenerateReportExcelValidation
 
         using var workbook = new XLWorkbook();
 
-        workbook.Author = "Marcos";
+        workbook.Author = loggedUser.Name;
         workbook.Style.Font.FontSize = 12;
         workbook.Style.Font.FontName = "Arial";
 
@@ -61,7 +67,5 @@ public class GenerateReportExcelValidation : IGenerateReportExcelValidation
         worksheet.Cell("C1").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
         worksheet.Cell("E1").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
         worksheet.Cell("D1").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
-
-
     }
 }

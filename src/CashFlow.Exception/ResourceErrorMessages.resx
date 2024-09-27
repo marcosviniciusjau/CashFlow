@@ -151,4 +151,10 @@
     <value>Email or password invalid</value>
     <comment>Email or password invalid</comment>
   </data>
+  <data name="Email_Invalid" xml:space="preserve">
+    <value>This email is invalid</value>
+  </data>
+  <data name="Different_Password" xml:space="preserve">
+    <value>The password must be equal of the actual password</value>
+  </data>
 </root>

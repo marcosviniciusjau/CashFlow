@@ -1,9 +1,8 @@
-﻿using CashFlow.Communication.Requests;
-using CashFlow.Communication.Responses;
+﻿using CashFlow.Communication.Responses;
 using CashFlow.Exception;
 using FluentValidation;
 
-namespace CashFlow.App.Validations.Users;
+namespace CashFlow.App.Validations.Users.Register;
 public class UserValidator : AbstractValidator<RequestUser>
 {
     public UserValidator()
@@ -16,6 +15,6 @@ public class UserValidator : AbstractValidator<RequestUser>
             .WithMessage(ResourceErrorMessages.Email_Not_Empty)
             ;
         RuleFor(user => user.Password).SetValidator(new PasswordValidator<RequestUser>());
-    
+
     }
 }

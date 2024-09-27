@@ -6,7 +6,7 @@ using CashFlow.Domain.Services;
 using CashFlow.Infra.DataAccess;
 using CashFlow.Infra.DataAccess.Repos;
 using CashFlow.Infra.Security;
-using CashFlow.Infra.Services.LoggedUser;
+using CashFlow.Infra.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,6 +42,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IExpensesUpdate, ExpensesRepo>();
         services.AddScoped<IUserReadOnly, UsersRepo>();
         services.AddScoped<IUserWrite, UsersRepo>();
+        services.AddScoped<IUserUpdate, UsersRepo>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration config)

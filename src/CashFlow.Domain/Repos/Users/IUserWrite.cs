@@ -4,4 +4,5 @@ namespace CashFlow.Domain.Repos.Users;
 public interface IUserWrite
 {
     Task Add(User user);
+    Task Delete(User user);
 }
