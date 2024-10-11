@@ -11,7 +11,16 @@ using CashFlow.Domain.Security;
 using CashFlow.Api.Token;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(config =>
@@ -92,7 +101,7 @@ app.MapControllers();
 
 await MigrateDatabase();
 
-
+app.UseCors("AllowSpecificOrigin");
 app.Run();
 
 async Task MigrateDatabase()

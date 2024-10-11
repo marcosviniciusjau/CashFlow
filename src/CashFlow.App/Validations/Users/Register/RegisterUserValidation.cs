@@ -41,7 +41,6 @@ public class RegisterUserValidation(
         await _unitOfWork.Commit();
         return new ResponseRegisteredUser
         {
-            Name = user.Name,
             Token = _tokenGenerator.Generate(user)
         };
     }

@@ -25,7 +25,8 @@ public class UpdateProfileValidation(
         await Validate(request, loggedUser.Email);
 
         var user = await _repos.GetById(loggedUser.Id);
-        user.Name = request.Name;
+        user.CompanyName = request.CompanyName;
+        user.ManagerName = request.ManagerName;
         user.Email = request.Email;
 
         _repos.Update(user);

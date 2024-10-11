@@ -21,9 +21,9 @@ namespace CashFlow.Infra.Security
         {
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Sid, user.UserId.ToString()),
-                new Claim(ClaimTypes.Role, user.Role)
+                new(ClaimTypes.Name, user.ManagerName),
+                new(ClaimTypes.Sid, user.UserId.ToString()),
+                new(ClaimTypes.Role, user.Role)
             };
             var tokenDescriptor = new SecurityTokenDescriptor
             {

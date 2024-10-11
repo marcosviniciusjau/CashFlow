@@ -28,7 +28,7 @@ public class GenerateReportExcelValidation : IGenerateReportExcelValidation
 
         using var workbook = new XLWorkbook();
 
-        workbook.Author = loggedUser.Name;
+        workbook.Author = loggedUser.ManagerName;
         workbook.Style.Font.FontSize = 12;
         workbook.Style.Font.FontName = "Arial";
 

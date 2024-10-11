@@ -33,7 +33,6 @@ public class LoginValidation : ILoginValidation
 
         return new ResponseRegisteredUser
         {
-            Name = user.Name,
             Token = _tokenGenerator.Generate(user)
         };
     }

@@ -36,10 +36,10 @@ public class GenerateReportPDFValidation : IGenerateReportPDFValidation
             return [];
         }
 
-        var document = CreateDocument(loggedUser.Name,month);
+        var document = CreateDocument(loggedUser.ManagerName, month);
         var page = CreatePage(document);
 
-        CreateHeader(loggedUser.Name,page);
+        CreateHeader(loggedUser.ManagerName, page);
         var paragraph = page.AddParagraph(); 
         var totalExpenses = expenses.Sum(expense => expense.Amount);
 
