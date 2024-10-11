@@ -1,18 +1,17 @@
-﻿using System.Net;
+﻿using CashFlow.Exception.ExceptionBase;
+using System.Net;
 
-namespace CashFlow.Exception.ExceptionBase
+namespace CashFlow.Exception.ExceptionsBase;
+public class InvalidLogin : CashFlowException
 {
-    public class InvalidLogin: CashFlowException
+    public InvalidLogin() : base(ResourceErrorMessages.Invalid_Login)
     {
-        public InvalidLogin() : base(ResourceErrorMessages.Invalid_Login)
-        {
-        }
+    }
 
-        public  int StatusCode => (int)HttpStatusCode.Unauthorized;
+    public override int StatusCode => (int)HttpStatusCode.Unauthorized;
 
-        public  List<string> GetErrors()
-        {
-            return [Message];
-        }
+    public override List<string> GetErrors()
+    {
+        return [Message];
     }
 }

@@ -3,6 +3,7 @@ using CashFlow.Communication.Responses;
 using CashFlow.Domain.Repos.Users;
 using CashFlow.Domain.Security;
 using CashFlow.Exception.ExceptionBase;
+using CashFlow.Exception.ExceptionsBase;
 
 namespace CashFlow.App.Validations.Login;
 public class LoginValidation : ILoginValidation

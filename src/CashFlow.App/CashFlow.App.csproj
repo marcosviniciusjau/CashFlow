@@ -36,4 +36,10 @@
     <ProjectReference Include="..\CashFlow.Infra\CashFlow.Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Logo\ProfilePhoto.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
