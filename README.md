@@ -1,7 +1,6 @@
 # Cash Flow
 
-- Projeto de uma **API em .NET** que salva os dados em **MySQL** , usando **LINQ**, com os princípios **DDD** autenticação **JWT**
+- Project of an **API in .NET** that save the data on em **MySQL** , using **LINQ**, with the **DDD** principles and **JWT** authentication 
 
-### Funções
-**Registrar despesas e para administradores gerar relatórios em PDF e Excel dessas despesas**
-- **Documentado no Swagger API**
+### Functions
+**Register expenses and for admins generate reports by month in  PDF and Excel of this expenses**
