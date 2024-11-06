@@ -1,6 +1,9 @@
 ﻿using CashFlow.App.Validations.Expenses.Delete;
 using CashFlow.App.Validations.Expenses.GetAll;
 using CashFlow.App.Validations.Expenses.GetById;
+using CashFlow.App.Validations.Expenses.GetTitles;
+using CashFlow.App.Validations.Expenses.GetTitlesByMonth;
+using CashFlow.App.Validations.Expenses.GetTotalAmount;
 using CashFlow.App.Validations.Expenses.Register;
 using CashFlow.App.Validations.Expenses.Update;
 using CashFlow.Communication.Requests;
@@ -41,6 +44,33 @@ public class ExpensesController : ControllerBase
             return Ok(response);
 
         return NoContent();
+    }
+
+    [HttpGet("total-amount")]
+    [ProducesResponseType(typeof(ResponseExpenses), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> GetTotalAmount([FromServices] IGetTotalAmount validation, [FromHeader] DateOnly month)
+    {
+        var response = await validation.Execute(month);
+        return Ok(response);
+    }
+
+    [HttpGet("titles")]
+    [ProducesResponseType(typeof(ResponseExpenses), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> GetTitles([FromServices] IGetTitles validation)
+    {
+        var response = await validation.Execute();
+        return Ok(response);
+    }
+
+    [HttpGet("titles_by_month")]
+    [ProducesResponseType(typeof(ResponseExpenses), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> GetTitlesByMonth([FromServices] IGetTitlesByMonth validation, [FromHeader] DateOnly month)
+    {
+        var response = await validation.Execute(month);
+        return Ok(response);
     }
 
     [HttpGet]

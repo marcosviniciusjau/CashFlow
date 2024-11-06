@@ -2,6 +2,9 @@
 using CashFlow.App.Validations.Expenses.Delete;
 using CashFlow.App.Validations.Expenses.GetAll;
 using CashFlow.App.Validations.Expenses.GetById;
+using CashFlow.App.Validations.Expenses.GetTitles;
+using CashFlow.App.Validations.Expenses.GetTitlesByMonth;
+using CashFlow.App.Validations.Expenses.GetTotalAmount;
 using CashFlow.App.Validations.Expenses.Register;
 using CashFlow.App.Validations.Expenses.Update;
 using CashFlow.App.Validations.Login;
@@ -36,6 +39,10 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterUserValidation, RegisterUserValidation>();
         services.AddScoped<IGetAllExpenseValidation, GetAllExpensesValidation>();
         services.AddScoped<IGetExpenseByIdValidation, GetExpenseByIdValidation>();
+        services.AddScoped<IGetTotalAmount, GetTotalAmount>();
+        services.AddScoped<IGetTitles, GetTitles>();
+        services.AddScoped<IGetTitlesByMonth, GetTitlesByMonth>();
+
         services.AddScoped<IDeleteExpenseValidation, DeleteExpenseValidation>();
         services.AddScoped<IUpdateExpenseValidation, UpdateExpenseValidation>();
         

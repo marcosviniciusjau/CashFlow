@@ -28,7 +28,7 @@ public class GetAllExpensesValidation : IGetAllExpenseValidation
 
         return new ResponseExpenses
         {
-            Expenses = _mapper.Map<List<ResponseShortExpense>>(result)
+            Expenses = _mapper.Map<List<ResponseExpense>>(result)
         };
     }
 }

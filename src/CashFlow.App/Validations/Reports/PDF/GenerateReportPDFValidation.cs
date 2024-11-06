@@ -92,7 +92,7 @@ public class GenerateReportPDFValidation : IGenerateReportPDFValidation
     private Document CreateDocument(string author, DateOnly month)
     {
         var document = new Document();
-        document.Info.Title =  $"{"Expenses for"} {month:Y}";
+        document.Info.Title =  $"{"Despesas para"} {month:Y}";
         document.Info.Author = author;
 
         var style = document.Styles["Normal"];
@@ -153,12 +153,13 @@ public class GenerateReportPDFValidation : IGenerateReportPDFValidation
         var paragraph = page.AddParagraph();
         paragraph.Format.SpaceBefore = "40";
         paragraph.Format.SpaceAfter = "40";
-        var title = string.Format("Total spent in {0}", month.ToString("Y"));
+        var title = string.Format("Total gasto em {0}", month.ToString("Y"));
         paragraph.AddFormattedText(title, new Font { Name = FontHelper.RALEWAY_REGULAR, Size = 15 });
         paragraph.AddLineBreak();
 
         paragraph.AddFormattedText($"{CURRENCY} {totalExpenses:f2}", new Font { Name = FontHelper.WORKSANS_BLACK, Size = 50 });
     }
+
     private Table CreateExpenseTable(Section page)
     {
         var table = page.AddTable();
@@ -178,6 +179,7 @@ public class GenerateReportPDFValidation : IGenerateReportPDFValidation
         cell.MergeRight = 2;
         cell.Format.LeftIndent = 20;
     }
+
     private void AddExpenseAmountHeader(Cell cell)
     {
         cell.AddParagraph("Amount");
@@ -203,6 +205,7 @@ public class GenerateReportPDFValidation : IGenerateReportPDFValidation
         cell.Shading.Color = ColorsHelper.WHITE;
         cell.VerticalAlignment = VerticalAlignment.Center;
     }
+
     private string ConvertPaymentType(PaymentTypes payment)
     {
         return payment switch
@@ -217,11 +220,11 @@ public class GenerateReportPDFValidation : IGenerateReportPDFValidation
 
     private void InsertHeader(IXLWorksheet worksheet)
     {
-        worksheet.Cell("A1").Value = "Title";
-        worksheet.Cell("B1").Value = "Date";
-        worksheet.Cell("C1").Value = "Payment Type";
-        worksheet.Cell("D1").Value = "Amount";
-        worksheet.Cell("E1").Value = "Description";
+        worksheet.Cell("A1").Value = "Título";
+        worksheet.Cell("B1").Value = "Data";
+        worksheet.Cell("C1").Value = "Tipo de pagamento";
+        worksheet.Cell("D1").Value = "Total";
+        worksheet.Cell("E1").Value = "Descrição";
 
         worksheet.Cells("A1:E1").Style.Font.Bold = true;
         worksheet.Cells("A1:E1").Style.Fill.BackgroundColor = XLColor.Yellow;
@@ -231,7 +234,5 @@ public class GenerateReportPDFValidation : IGenerateReportPDFValidation
         worksheet.Cell("C1").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
         worksheet.Cell("E1").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
         worksheet.Cell("D1").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
-
-
     }
 }

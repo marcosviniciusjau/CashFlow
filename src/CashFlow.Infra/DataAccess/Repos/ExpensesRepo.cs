@@ -7,6 +7,7 @@ namespace CashFlow.Infra.DataAccess.Repos;
 internal class ExpensesRepo : IExpenseReadOnly,IExpensesWrite, IExpensesUpdate
 {
     private readonly CashFlowDbContext _dbContext;
+  
     public ExpensesRepo(CashFlowDbContext dbContext)
     {
         _dbContext = dbContext;
@@ -19,6 +20,39 @@ internal class ExpensesRepo : IExpenseReadOnly,IExpensesWrite, IExpensesUpdate
     {
         return await _dbContext.Expenses.AsNoTracking().Where(expense => expense.UserId == user.Id).ToListAsync();
     }
+
+    public async Task<List<ExpenseDTO>> GetTitlesWithAmount(User user)
+    {
+
+        return await _dbContext.Expenses.AsNoTracking()
+            .Where(expense => expense.UserId == user.Id)
+            .OrderByDescending(expense => expense.Amount)
+            .Select(expense => new ExpenseDTO
+            {
+                Title = expense.Title,
+                Amount = expense.Amount
+            })
+            .ToListAsync();
+
+    }
+
+    public async Task<List<ExpenseDTO>> GetTitlesWithAmountByMonth(User user, DateOnly date)
+    {
+        var startDate = new DateTime(year: date.Year, month: date.Month, day: 1).Date;
+        var daysInMonth = DateTime.DaysInMonth(year: date.Year, month: date.Month);
+        var endDate = new DateTime(year: date.Year, month: date.Month, day: daysInMonth, hour: 23, minute: 59, second: 59);
+
+        return await _dbContext.Expenses.AsNoTracking()
+            .Where(expense => expense.UserId == user.Id && expense.Date >= startDate && expense.Date <= endDate)
+            .OrderByDescending(expense => expense.Amount)
+            .Select(expense => new ExpenseDTO
+            {
+                Title = expense.Title,
+                Amount = expense.Amount
+            })
+            .ToListAsync();
+    }
+
 
     public async Task Delete(long id)
     {

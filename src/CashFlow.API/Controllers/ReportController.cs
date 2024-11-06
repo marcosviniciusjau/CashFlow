@@ -21,16 +21,16 @@ public class ReportController : ControllerBase
         byte [] file = await validation.Execute(month);
         if (file.Length > 0)
         {
-            return File(file, MediaTypeNames.Application.Octet, "report.xlsx");
+           return File(file, MediaTypeNames.Application.Octet, "report.xlsx");
         }
-        return NoContent();
+         return NoContent();
     }  
     [HttpGet("pdf")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> GetPDF(
         [FromServices] IGenerateReportPDFValidation validation,
-        [FromQuery] DateOnly month)
+        [FromHeader] DateOnly month)
     {
         byte [] file = await validation.Execute(month);
         if (file.Length > 0)
