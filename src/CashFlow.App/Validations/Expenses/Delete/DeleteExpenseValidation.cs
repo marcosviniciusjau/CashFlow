@@ -15,6 +15,7 @@ public class DeleteExpenseValidation : IDeleteExpenseValidation
     private readonly IUnitOfWork _unitOfWork;
     private readonly ILoggedUser _loggedUser;
 
+
     public DeleteExpenseValidation(
         IExpensesWrite repos,
         IUnitOfWork unitOfWork,
@@ -31,7 +32,7 @@ public class DeleteExpenseValidation : IDeleteExpenseValidation
     public async Task Execute(long id)
     {
         var loggedUser = await _loggedUser.Get();
-        var expense = _expenseReadOnly.GetById(loggedUser, id);
+        var expense = await _expenseReadOnly.GetById(loggedUser, id);
 
         if (expense is null)
         {
